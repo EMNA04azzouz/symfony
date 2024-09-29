@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library: Liste des Auteurs</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            font-family: 'Arial', sans-serif;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-top: 20px;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.7);
+        }
+        .container {
+            margin-top: 30px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        table {
+            width: 100%;
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 15px;
+            text-align: left;
+            transition: background-color 0.3s;
+        }
+        th {
+            background-color: #ff6b6b;
+            color: white;
+            text-transform: uppercase;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #ffe066;
+        }
+        img {
+            max-width: 800px; /* Limiting image size */
+            height: auto;
+            border-radius: 5px;
+        }
+        .no-authors {
+            text-align: center;
+            color: #d9534f;
+            font-size: 1.2em;
+        }
+        .btn-info {
+            background-color: #5bc0de;
+            border-color: #46b8da;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .btn-info:hover {
+            background-color: #31b0d5;
+            border-color: #269abc;
+        }
+    </style>
+</head>
+<body>
+    <h1>Liste des Auteurs</h1>
+    {% if authors is defined and authors is not empty %}
+        <div class="container">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Nom de l'Auteur</th>
+                        <th>Photo de l'Auteur</th>
+                        <th>Détails</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% set total_books = 0 %}
+                    {% for author in authors %}
+                        {% set total_books = total_books + author.nbrBooks %}
+                        <tr>
+                            <td>{{ author.name | upper }}</td>
+                            <td>
+ <img img src="{{asset(author.picture)}}">
+                            </td>
+                            <td>
+                                <a href="{{ path('app_showDetail', {'id': author.id}) }}" class="btn btn-info">Voir Détails</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <h2>Cette table contient {{ authors | length }} auteurs et {{ total_books }} livres.</h2>
+        </div>
+    {% else %}
+        <h2 class="no-authors">La table n'est pas définie ou est vide.</h2>
+    {% endif %}
+</body>
+</html>
