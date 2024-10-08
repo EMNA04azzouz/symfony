@@ -1,0 +1,26 @@
+<html>
+<head>
+    <title>Library: list</title>
+</head>
+<body>
+    <h1>Author List</h1>
+
+    {% if authors is defined and authors is not empty %}
+        <table>
+            <tr>
+                <th>Author Name</th>
+                <th>Author Email</th>
+            </tr>
+            {% for author in authors %}
+                <tr>
+                    <td>{{ author.name|upper }}</td>
+                    <td>{{ author.email|upper }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        <h2>This table contains {{ authors|length }} authors.</h2>
+    {% else %}
+        <h2>The table is not defined or empty.</h2>
+    {% endif %}
+</body>
+</html>

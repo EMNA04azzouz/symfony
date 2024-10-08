@@ -1,0 +1,27 @@
+{# templates/crud_book/listB.html.twig #}
+
+<html>
+<head>
+    <title>Liste des livres</title>
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+</head>
+<body>
+    <h1>Liste des livres</h1>
+
+    <ul>
+        {% for book in books %}
+            <li>
+                {{ book.title }} par {{ book.author }}
+                <div>
+                    <a href="{{ path('app_edit_book', { id: book.id }) }}" class="btn">Modifier</a>
+                    <a href="{{ path('app_delete_book', { id: book.id }) }}" class="btn">Supprimer</a>
+                </div>
+            </li>
+        {% else %}
+            <li>Aucun livre trouvé.</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{{ path('app_new_book') }}" class="btn">Ajouter un nouveau livre</a>
+</body>
+</html>
